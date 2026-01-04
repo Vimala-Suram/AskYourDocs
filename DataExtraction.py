@@ -1,7 +1,8 @@
-from unstructured.partition.pdf import partition_pdf
+from PyPDF2 import PdfReader
 
-# unstructured package is supported for OCR, texts, tables extraction
-def ExtractTextFromPDF(filePath):
-    ele = partition_pdf(filePath)
-    return " ".join([str(e) for e in ele])
-    
+def ExtractTextFromPDF(filPath):
+    reader = PdfReader(filePath)
+    text = ""
+    for page in reader.pages:
+        text += page.extract_text()
+    return text
